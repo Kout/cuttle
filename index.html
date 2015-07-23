@@ -8,6 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <style>
+        output { white-space: pre; }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -15,17 +19,16 @@
 
         <div id="from" class="col-md-6">
             <h2>From</h2>
-            <input value="#ffa">
+            <input value="ffff00">
         </div>
         <div id="to" class="col-md-6">
             <h2>To</h2>
-            <input value="#ffc">
+            <input value="ffffaa">
         </div>
 
         <h2 class="col-md-12">What do you suggest?</h2>
 
-        <output id="suggestions" class="col-md-12">
-        </output>
+        <output id="suggestions" class="col-md-12"></output>
     </div>
 
     <script src="cuttle.min.js"></script>
@@ -35,8 +38,11 @@
         function suggest(e) {
             var from = $("#from input").value;
             var to = $("#to input").value;
+            var suggestions = cuttle.suggest(from, to);
 
-            $("output").value = cuttle.suggest(from, to)[0];
+            $("output").value = suggestions.map(function(x) {
+                return x.format;
+            }).join("\n");
         }
 
         document.body.addEventListener("input", suggest);
